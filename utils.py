@@ -1,11 +1,10 @@
-from typing import Dict, List
+from typing import List
 
 import cv2
 import numpy as np
 
 from supervision.draw.color import Color
-from supervision.geometry.dataclasses import Point, Rect, Vector
-from supervision.tools.detections import Detections
+from supervision.geometry.dataclasses import Point
 
 class SpeedEstimator:
     def __init__(self):

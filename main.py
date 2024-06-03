@@ -33,6 +33,7 @@ box_annotator = BoxAnnotator(color=ColorPalette(), thickness=1, text_thickness=1
 
 # create SpeedEstimator instance
 speed_estimator = SpeedEstimator()
+speeds = []
 
 # open target video file
 with VideoSink(TARGET_VIDEO_PATH, video_info) as sink:
@@ -75,6 +76,7 @@ with VideoSink(TARGET_VIDEO_PATH, video_info) as sink:
                 if time_taken > 0:
                     speed = distance_covered / time_taken  # meters per second
                     speed_estimator.speed = speed
+                    speeds.append(speed)  # Record speed
                     start_time = None  # Reset start_time for the next run
 
         # annotate and display frame
@@ -92,5 +94,8 @@ with VideoSink(TARGET_VIDEO_PATH, video_info) as sink:
         # Break the loop if 'q' is pressed
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
-        
+
+# Calculate and print average speed
+average_speed = sum(speeds) / len(speeds) if speeds else 0
+print(f"Average Speed: {average_speed:.2f} m/s")
 cv2.destroyAllWindows()
